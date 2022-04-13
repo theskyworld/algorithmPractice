@@ -53,8 +53,9 @@ function addTwoNums(l1,l2){
     let h3 = res.head;
     // console.log(h3)
     // 判断两个数中最大的位数
+    let i = 0;
     let maxDigit = l1.size >= l2.size ? l1.size : l2.size;
-    for(let i = 0; i < maxDigit; i++){
+    for(i; i <= maxDigit; i++){
         // console.log(maxDigit)
         if(h1 && h2){
             // console.log(h1.value,h2.value);
@@ -72,7 +73,8 @@ function addTwoNums(l1,l2){
             h3 = h3.next;
         }
         else if(h1 && h2 === null){
-            h3.value += h1.value + 0;
+            h3.value += h1.value;
+            // console.log(h1.value,h3.value)
             let newNode = new Node(0,null);
             h3.next = newNode;
             // 大于等于10时向前进一
@@ -80,22 +82,33 @@ function addTwoNums(l1,l2){
                 // maxDigit = maxDigit + 1;
                 // maxDigit++;
                 h3.next.value += 1;
+                // console.log('n',h3.next.value)
                 h3.value = h3.value - 10;
             }
+            // console.log(h3.value)
             resArr[i] = h3.value;
+            h1 = h1.next;
+            h3 = h3.next;
         }else if(h1 === null && h2){
-            h3.value += 0 + h2.value;
+            h3.value += h2.value;
             let newNode = new Node(0,null);
             h3.next = newNode;
             // 大于等于10时向前进一
             if(h3.value >= 10){
-                maxDigit++;
+                // maxDigit++;
                 h3.next.value += 1;
                 h3.value = h3.value - 10;
             }
             resArr[i] = h3.value;
+            h2 = h2.next;
+            h3 = h3.next;
+        }else if(h1 === null && h2 === null){
+            if(h3.value !== 0){
+                resArr[i] = h3.value;
+            }
         }
     }
+    console.log(res.head)
     return resArr;
 }
 let l1 = l1Arr([9,9,9,9,9,9,9]);
